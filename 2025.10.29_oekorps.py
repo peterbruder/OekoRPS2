@@ -502,7 +502,7 @@ initialize_session_state()
 show_sidebar()
 
 # Grundlegende Konfiguration
-st.title("Entwurf: ÖkoRPS - Ökologische Bewertung von Ridepooling-Systemen")
+st.title("ÖkoRPS - Ökologische Bewertung von Ridepooling-Systemen")
 
 # Zeige Methodik-Sektion an
 show_methodik_section()

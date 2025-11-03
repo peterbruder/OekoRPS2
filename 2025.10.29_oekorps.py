@@ -369,6 +369,8 @@ def show_emissions_data():
             strom_emissionsdaten = st.number_input("Geben Sie die CO2-Emissionsdaten (Strom) [g CO2eq/kWh] ein:", min_value=0, format='%d', step=1)
 
         # Anteil an selbst erzeugtem Strom aus Photovoltaikanlagen
+        
+        st.info( "Optional: Ein Teil des Strombezugs kann aus einer sekundären Quelle (z. B. PV-Eigenerzeugung, zertifizierter Ökostrom, PPA) stammen. Der gewichtete Emissionsfaktor wird entsprechend berechnet.")
         oekostrom_anteil = st.slider("Optional: Geben Sie den Anteil einer **sekundären Stromquelle** am Stromverbrauch an [%]:", 0, 100, 0)
         pv_emissionsdaten = st.number_input("Geben Sie den Emissionsfaktor der **sekundären Stromquelle** an [g CO2e/kWh]:", value=50.0, min_value=0.0, format='%f', step=1.0)
         strom_emissionsdaten = round(strom_emissionsdaten * (1 - oekostrom_anteil / 100.0) + pv_emissionsdaten * (oekostrom_anteil / 100.0), 2)
@@ -391,7 +393,6 @@ def show_emissions_data():
         with col2:
             st.write(f"**{strom_emissionsdaten} g CO2eq/kWh**")
 
-        st.info( "Optional: Ein Teil des Strombezugs kann aus einer sekundären Quelle (z. B. PV-Eigenerzeugung, zertifizierter Ökostrom, PPA) stammen. Der gewichtete Emissionsfaktor wird entsprechend berechnet.")
 
         # Speichern der globalen Variablen
         st.session_state.update({
@@ -401,7 +402,6 @@ def show_emissions_data():
             'oekostrom_anteil': oekostrom_anteil,
             'pv_emissionsdaten': pv_emissionsdaten
         })
-
 
 # Funktion zur Darstellung der Berechnung der Umweltwirkung des Ridepooling-Systems
 def show_environmental_impact_calculation():

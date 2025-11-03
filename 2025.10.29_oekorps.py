@@ -364,7 +364,7 @@ def show_emissions_data():
             strom_emissionsdaten = 498  # g/kWh
         elif strom_emissionsdaten_auswahl == "LANUK Emissionsfaktoren der Klimaneutralen Landesverwaltung: Ökostrom DE, 2022 [CO2eq]":
             strom_emissionsdaten = 56  # g/kWh
-        elif strom_emissionsdaten_auswahl == "Umweltbundesamt: CO2-Emissionsfaktor Strommix (2024) [CO2e]":
+        elif strom_emissionsdaten_auswahl == "Umweltbundesamt: CO2-Emissionsfaktor Strommix (2024) [CO2eq]":
             strom_emissionsdaten = 363  # g/kWh
         else:  # Eigene Angaben
             strom_emissionsdaten = st.number_input("Geben Sie die CO2-Emissionsdaten (Strom) [g CO2eq/kWh] ein:", min_value=0, format='%d', step=1)

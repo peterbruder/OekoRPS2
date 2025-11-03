@@ -99,9 +99,9 @@ def show_system_performance():
         # Daten für das Dropdown-Menü
         ridepooling_data = {
             "Eigene Angaben": {"Fahrten": 0, "Transportierte Fahrgäste": 0},
-            "bussi": {"Fahrten": 8450, "Transportierte Fahrgäste": 13839, "vehicle_type": "LEVC TX (Volvo XC 90 Recharge T8 AWD)", "Benzinverbrauch (l/100km)": 1.2, "Dieselverbrauch (l/100km)": 0.0, "Stromverbrauch (kWh/100km)": 20.5, "Kilometer leer": 50422.31, "Kilometer besetzt": 40063.44},
-            "G-Mobil": {"Fahrten": 60045, "Transportierte Fahrgäste": 74556},
-            "kommit-Shuttle": {"Fahrten": 21895, "Transportierte Fahrgäste": 26263},
+            "bussi": {"Fahrten": 8475, "Transportierte Fahrgäste": 13876, "vehicle_type": "LEVC TX (Volvo XC 90 Recharge T8 AWD)", "Benzinverbrauch (l/100km)": 1.2, "Dieselverbrauch (l/100km)": 0.0, "Stromverbrauch (kWh/100km)": 20.5, "Kilometer leer": 50422.31, "Kilometer besetzt": 40063.44},
+            "G-Mobil": {"Fahrten": 60043, "Transportierte Fahrgäste": 74561},
+            "kommit-Shuttle": {"Fahrten": 21908, "Transportierte Fahrgäste": 26280},
             "LOOPmünster": {"Fahrten": 151415, "Transportierte Fahrgäste": 187309},
         }
 
@@ -127,6 +127,7 @@ def show_vehicle_fleet_performance():
             "Mercedes Vito lang 114 CDI": {"Benzinverbrauch (l/100km)": 0.0, "Dieselverbrauch (l/100km)": 8.4, "Stromverbrauch (kWh/100km)": 0.0, "Kilometer leer": 0, "Kilometer besetzt": 0},
             "Mercedes eVito Tourer PRO lang (90 kWh)": {"Benzinverbrauch (l/100km)": 0.0, "Dieselverbrauch (l/100km)": 0.0, "Stromverbrauch (kWh/100km)": 29.8, "Kilometer leer": 0, "Kilometer besetzt": 0},
             "Mercedes EQV 300 extra lang": {"Benzinverbrauch (l/100km)": 0.0, "Dieselverbrauch (l/100km)": 0.0, "Stromverbrauch (kWh/100km)": 30.2, "Kilometer leer": 0, "Kilometer besetzt": 0},
+            "Nissan e NV 200": {"Benzinverbrauch (l/100km)": 0.0, "Dieselverbrauch (l/100km)": 0.0, "Stromverbrauch (kWh/100km)": 20.6, "Kilometer leer": 0, "Kilometer besetzt": 0},
             "Anderer Fahrzeugtyp": {"Benzinverbrauch (l/100km)": 0.0, "Dieselverbrauch (l/100km)": 0.0, "Stromverbrauch (kWh/100km)": 0.0, "Kilometer leer": 0, "Kilometer besetzt": 0}
         }
 
@@ -335,33 +336,36 @@ def show_emissions_data():
 
         # CO2-Emissionsdaten (Benzin)
         benzin_emissionsdaten_auswahl = st.selectbox("CO2eq-Emissionsdaten (Benzin):", 
-                                                      ["Helmholtz-Gemeinschaft Deutscher Forschungszentren [CO2eq]", "CO2online [CO2]", "Eigene Angaben"])
-        if benzin_emissionsdaten_auswahl == "Helmholtz-Gemeinschaft Deutscher Forschungszentren [CO2eq]":
+                                                      ["DIN EN 16258:2013, Tabelle A.2 [CO2eq]", "Helmholtz-Gemeinschaft Deutscher Forschungszentren [CO2eq]", "Eigene Angaben"])
+        if benzin_emissionsdaten_auswahl == "DIN EN 16258:2013, Tabelle A.2 [CO2eq]":
+            benzin_emissionsdaten = 2880  # g/l
+        elif benzin_emissionsdaten_auswahl == "Helmholtz-Gemeinschaft Deutscher Forschungszentren [CO2eq]":
             benzin_emissionsdaten = 3030  # g/l
-        elif benzin_emissionsdaten_auswahl == "CO2online [CO2]":
-            benzin_emissionsdaten = 2370  # g/l
         else:  # Eigene Angaben
             benzin_emissionsdaten = st.number_input("Geben Sie die CO2-Emissionsdaten (Benzin) [g/l] ein:", min_value=0, format='%d', step=1)
 
         # CO2-Emissionsdaten (Diesel)
         diesel_emissionsdaten_auswahl = st.selectbox("CO2eq-Emissionsdaten (Diesel):", 
-                                                      ["Helmholtz-Gemeinschaft Deutscher Forschungszentren [CO2eq]", "CO2online [CO2]", "Eigene Angaben"])
-        if diesel_emissionsdaten_auswahl == "Helmholtz-Gemeinschaft Deutscher Forschungszentren [CO2eq]":
+                                                      ["DIN EN 16258:2013, Tabelle A.4 [CO2eq]","Helmholtz-Gemeinschaft Deutscher Forschungszentren [CO2eq]", "Eigene Angaben"])
+        if diesel_emissionsdaten_auswahl == "DIN EN 16258:2013, Tabelle A.4 [CO2eq]":
+            diesel_emissionsdaten = 3170  # g/l
+        elif diesel_emissionsdaten_auswahl == "Helmholtz-Gemeinschaft Deutscher Forschungszentren [CO2eq]":
             diesel_emissionsdaten = 3410  # g/l
-        elif diesel_emissionsdaten_auswahl == "CO2online [CO2]":
-            diesel_emissionsdaten = 2650  # g/l
         else:  # Eigene Angaben
             diesel_emissionsdaten = st.number_input("Geben Sie die CO2-Emissionsdaten (Diesel) [g/l] ein:", min_value=0, format='%d', step=1)
 
         # CO2-Emissionsdaten (Strom)
         strom_emissionsdaten_auswahl = st.selectbox("CO2eq-Emissionsdaten (Strom):", 
-                                                     ["Umweltbundesamt: CO2-Äquivalente mit Vorketten (2022) [CO2eq]", 
-                                                      "Umweltbundesamt: CO2-Emissionsfaktor Strommix (2022)", 
+                                                     ["LANUK Emissionsfaktoren der Klimaneutralen Landesverwaltung: Strommix DE, 2022 [CO2eq]",
+                                                      "LANUK Emissionsfaktoren der Klimaneutralen Landesverwaltung: Ökostrom DE, 2022 [CO2eq]", 
+                                                      "Umweltbundesamt: CO2-Emissionsfaktor Strommix (2024) [CO2eq]", 
                                                       "Eigene Angaben"])
-        if strom_emissionsdaten_auswahl == "Umweltbundesamt: CO2-Äquivalente mit Vorketten (2022) [CO2eq]":
+        if strom_emissionsdaten_auswahl == "LANUK Emissionsfaktoren der Klimaneutralen Landesverwaltung: Strommix DE, 2022 [CO2eq]":
             strom_emissionsdaten = 498  # g/kWh
-        elif strom_emissionsdaten_auswahl == "Umweltbundesamt: CO2-Emissionsfaktor Strommix (2022)":
-            strom_emissionsdaten = 434  # g/kWh
+        elif strom_emissionsdaten_auswahl == "LANUK Emissionsfaktoren der Klimaneutralen Landesverwaltung: Ökostrom DE, 2022 [CO2eq]":
+            strom_emissionsdaten = 56  # g/kWh
+        elif strom_emissionsdaten_auswahl == "Umweltbundesamt: CO2-Emissionsfaktor Strommix (2024) [CO2e]":
+            strom_emissionsdaten = 363  # g/kWh
         else:  # Eigene Angaben
             strom_emissionsdaten = st.number_input("Geben Sie die CO2-Emissionsdaten (Strom) [g CO2eq/kWh] ein:", min_value=0, format='%d', step=1)
 

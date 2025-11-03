@@ -18,7 +18,6 @@ hide_buttons_css = """
 # Inject the custom CSS into the Streamlit app
 st.markdown(hide_buttons_css, unsafe_allow_html=True)
 
-
 # Funktion zur Initialisierung der Session State Variablen
 def initialize_session_state():
     if 'vehicle_list' not in st.session_state:
@@ -370,8 +369,8 @@ def show_emissions_data():
             strom_emissionsdaten = st.number_input("Geben Sie die CO2-Emissionsdaten (Strom) [g CO2eq/kWh] ein:", min_value=0, format='%d', step=1)
 
         # Anteil an selbst erzeugtem Strom aus Photovoltaikanlagen
-        oekostrom_anteil = st.slider("Anteil des selbst erzeugten Stroms aus Photovoltaikanlagen [%]:", 0, 100, 0)
-        pv_emissionsdaten = st.number_input("Geben Sie die CO2-Emissionsdaten für selbst erzeugten Strom aus Photovoltaikanlagen [g/kWh] ein:", value=35.0, min_value=0.0, format='%f', step=1.0)
+        oekostrom_anteil = st.slider("Optional: Geben Sie den Anteil einer **sekundären Stromquelle** am Strombezug an [%]:", 0, 100, 0)
+        pv_emissionsdaten = st.number_input("Geben Sie den Emissionsfaktor der **sekundären Stromquelle** an [g CO2e/kWh]:",:", value=35.0, min_value=0.0, format='%f', step=1.0)
         strom_emissionsdaten = round(strom_emissionsdaten * (1 - oekostrom_anteil / 100.0) + pv_emissionsdaten * (oekostrom_anteil / 100.0), 2)
 
         col1, col2 = st.columns([3, 1])
@@ -392,7 +391,7 @@ def show_emissions_data():
         with col2:
             st.write(f"**{strom_emissionsdaten} g CO2eq/kWh**")
 
-        st.info("Die Daten für den CO2eq-Wert aus Photovoltaikanlagen stammen von: [Electricity Maps](https://app.electricitymaps.com/zone/DE)")
+        st.info( "Optional: Ein Teil des Strombezugs kann aus einer sekundären Quelle (z. B. PV-Eigenerzeugung, zertifizierter Ökostrom, PPA) stammen. Der gewichtete Emissionsfaktor wird entsprechend berechnet.")
 
         # Speichern der globalen Variablen
         st.session_state.update({

@@ -370,7 +370,7 @@ def show_emissions_data():
 
         # Anteil an selbst erzeugtem Strom aus Photovoltaikanlagen
         oekostrom_anteil = st.slider("Optional: Geben Sie den Anteil einer **sekundären Stromquelle** am Strombezug an [%]:", 0, 100, 0)
-        pv_emissionsdaten = st.number_input("Geben Sie den Emissionsfaktor der **sekundären Stromquelle** an [g CO2e/kWh]:",:", value=35.0, min_value=0.0, format='%f', step=1.0)
+        pv_emissionsdaten = st.number_input("Geben Sie den Emissionsfaktor der **sekundären Stromquelle** an [g CO2e/kWh]:", value=35.0, min_value=0.0, format='%f', step=1.0)
         strom_emissionsdaten = round(strom_emissionsdaten * (1 - oekostrom_anteil / 100.0) + pv_emissionsdaten * (oekostrom_anteil / 100.0), 2)
 
         col1, col2 = st.columns([3, 1])
@@ -387,7 +387,7 @@ def show_emissions_data():
         
         col1, col2 = st.columns([3, 1])
         with col1:
-            st.write(f"**Adjustierter CO2-Emissionsdaten (Strom) basierend auf {oekostrom_anteil}% selbst erzeugtem Strom aus Photovoltaikanlagen:**")
+            st.write(f"**Adjustierter CO2-Emissionsdaten (Strom) basierend auf {oekostrom_anteil}% der sekundären Stromquelle:**")
         with col2:
             st.write(f"**{strom_emissionsdaten} g CO2eq/kWh**")
 

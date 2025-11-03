@@ -123,7 +123,7 @@ def show_vehicle_fleet_performance():
     with st.expander("**3. Fahrzeugflotte & Fahrtleistung**"):
         # Vordefinierte Fahrzeugtypen und deren Verbrauchsdaten
         vehicle_types = {
-            "LEVC TX (Volvo XC 90 Recharge T8 AWD)": {"Benzinverbrauch (l/100km)": 1.2, "Dieselverbrauch (l/100km)": 0.0, "Stromverbrauch (kWh/100km)": 20.5, "Kilometer leer": 0, "Kilometer besetzt": 0},
+            "LEVC TX (Volvo XC 90 Recharge T8 AWD)": {"Benzinverbrauch (l/100km)": 1.35, "Dieselverbrauch (l/100km)": 0.0, "Stromverbrauch (kWh/100km)": 21.55, "Kilometer leer": 0, "Kilometer besetzt": 0},
             "Mercedes Vito lang 114 CDI": {"Benzinverbrauch (l/100km)": 0.0, "Dieselverbrauch (l/100km)": 8.4, "Stromverbrauch (kWh/100km)": 0.0, "Kilometer leer": 0, "Kilometer besetzt": 0},
             "Mercedes eVito Tourer PRO lang (90 kWh)": {"Benzinverbrauch (l/100km)": 0.0, "Dieselverbrauch (l/100km)": 0.0, "Stromverbrauch (kWh/100km)": 29.8, "Kilometer leer": 0, "Kilometer besetzt": 0},
             "Mercedes EQV 300 extra lang": {"Benzinverbrauch (l/100km)": 0.0, "Dieselverbrauch (l/100km)": 0.0, "Stromverbrauch (kWh/100km)": 30.2, "Kilometer leer": 0, "Kilometer besetzt": 0},

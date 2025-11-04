@@ -1428,19 +1428,19 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Modal Spl
                     if co2_emissionen_pro_personenkilometer_rps < emissionen_pro_personenkilometer_av_pkm:
                         percentage_difference = round((emissionen_pro_personenkilometer_av_pkm - co2_emissionen_pro_personenkilometer_rps) / emissionen_pro_personenkilometer_av_pkm * 100, 2)
                         total_difference = round((gesamtemissionen_av_pkm - co2_emissionen_gesamt_rps), 2)
-                        st.success(f"Das Ridepooling-System weist im Vergleich zu den alternativ genutzten Verkehrsmitteln eine geringere spezifische CO2-Emission pro Personenkilometer auf. Die spezifische CO2-Emission pro Personenkilometer des Ridepooling-Systems ist um {percentage_difference} % niedriger als bei alternativ genutzten Verkehrsmitteln. Die Gesamtemissionen des Ridepoolings betragen {co2_emissionen_gesamt_rps} kg CO2, was im Betrachtungszeitraum ({start_date} bis {end_date}) zu einer Einsparung von {total_difference} kg CO2 im Vergleich den alternativ genutzten Verkehrsmitteln entspricht.")
+                        st.success(f"Das Ridepooling-System weist im Vergleich zu der Referenzmobilität im Bediengebiet (alternativ genutzten Verkehrsmitteln) eine geringere spezifische CO2-Emission pro Personenkilometer auf. Die spezifische CO2-Emission pro Personenkilometer des Ridepooling-Systems ist um {percentage_difference} % niedriger als die der Referenzmobilität im Bediengebiet. Die Gesamtemissionen des Ridepoolings betragen {co2_emissionen_gesamt_rps} kg CO2, was im Betrachtungszeitraum ({start_date} bis {end_date}) zu einer Einsparung von {total_difference} kg CO2 im Vergleich zu der Referenzmobilität im Bediengebiet entspricht.")
                     elif co2_emissionen_pro_personenkilometer_rps > emissionen_pro_personenkilometer_av_pkm:
                         percentage_difference = round((co2_emissionen_pro_personenkilometer_rps - emissionen_pro_personenkilometer_av_pkm) / emissionen_pro_personenkilometer_av_pkm * 100, 2)
                         total_difference = round((co2_emissionen_gesamt_rps - gesamtemissionen_av_pkm), 2)
-                        st.error(f"Das Ridepooling-System weist im Vergleich zu den den alternativ genutzten Verkehrsmitteln eine höhere spezifische CO2-Emission pro Personenkilometer auf. Die spezifische CO2-Emission pro Personenkilometer des Ridepooling-Systems ist um {percentage_difference} % höher als bei alternativ genutzten Verkehrsmitteln. Die Gesamtemissionen des Ridepoolings betragen {co2_emissionen_gesamt_rps} kg CO2, was im Betrachtungszeitraum ({start_date} bis {end_date}) zu einer Erhöhung von {total_difference} kg CO2 im Vergleich den alternativ genutzten Verkehrsmitteln entspricht.")
+                        st.error(f"Das Ridepooling-System weist im Vergleich zu der Referenzmobilität im Bediengebiet (alternativ genutzten Verkehrsmitteln) eine höhere spezifische CO2-Emission pro Personenkilometer auf. Die spezifische CO2-Emission pro Personenkilometer des Ridepooling-Systems ist um {percentage_difference} % höher als die der Referenzmobilität im Bediengebiet. Die Gesamtemissionen des Ridepoolings betragen {co2_emissionen_gesamt_rps} kg CO2, was im Betrachtungszeitraum ({start_date} bis {end_date}) zu einer Erhöhung von {total_difference} kg CO2 im Vergleich zu derReferenzmobilität im Bediengebiet entspricht.")
                     else:
-                        st.warning("Das Ridepooling-System und die alternativen Verkehrsmittel weisen die gleiche spezifische CO2-Emission pro Personenkilometer auf.")
+                        st.warning("Das Ridepooling-System und die Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel) weisen die gleiche spezifische CO2-Emission pro Personenkilometer auf.")
         else:
             st.error("Bitte stellen Sie sicher, dass alle erforderlichen Daten vorhanden sind, um den Vergleich der spezifischen CO2-Emissionen pro Personenkilometer durchzuführen.")
                 
     # Export
     with st.expander("**10. Export der Eingabedaten und Ergebnisse**"):
-        st.info("**Hinweis:** Im Folgenden wird der spezifische CO2-Ausstoß pro Personenkilometer des Ridepooling-Systems mit denen der alternativ genutzten Verkehrsmittel verglichen.")
+        st.info("**Hinweis:** Im Folgenden wird der spezifische CO2-Ausstoß pro Personenkilometer des Ridepooling-Systems mit denen der Referenzmobilität im Betriebsgebiet verglichen.")
         # Stellen Sie sicher, dass alle erforderlichen Werte vorhanden sind, bevor Sie fortfahren
         required_keys = [
             'name_ridepooling_system', 'start_date', 'end_date', 'abgeschlossene_buchungen',
@@ -1525,9 +1525,9 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Modal Spl
 
                 data_av_pkm = {
                     "Merkmal": ["Wert"],
-                    "Gesamtemissionen alternative Verkehrsmittel (kg CO2eq)": [st.session_state['gesamtemissionen_av_pkm']],
-                    "Personenkilometer alternative Verkehrsmittel (km)": [st.session_state['personenkilometer_gesamt_av_pkm']],
-                    "CO2-Emissionen pro Personenkilometer alternative Verkehrsmittel (g CO2eq/pkm)": [st.session_state['emissionen_pro_personenkilometer_av_pkm']]
+                    "Gesamtemissionen Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel) (kg CO2eq)": [st.session_state['gesamtemissionen_av_pkm']],
+                    "Personenkilometer Referenzmobilität im Bediengebiet (pkm)": [st.session_state['personenkilometer_gesamt_av_pkm']],
+                    "CO2-Emissionen pro Personenkilometer Referenzmobilität im Bediengebiet (g CO2eq/pkm)": [st.session_state['emissionen_pro_personenkilometer_av_pkm']]
                 }
 
                 # Hinzufügen der Modal Split Daten  
@@ -1571,8 +1571,8 @@ mode_to_key_umfrage_wege = {
 
 ### Verkehrsmittelverteilung Umfrage (Wege)
 if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (Wege)":
-    with st.expander("**6. Verkehrsmittelverteilung alternativer Verkehrsmittel**"):
-        st.info("""**Hinweis:** Bitte geben Sie die Annahmen für die Verteilung der alternativen Verkehrsmittelverteilung der Fahrgäste an.
+    with st.expander("**6. Verkehrsmittelverteilung der Referenzmobilität im Bediengebiet (alternativ genutzter Verkehrsmittel)**"):
+        st.info("""**Hinweis:** Bitte geben Sie die Annahmen für die Verteilung der Referenzmobilität im Bediengebiet (der alternativ genutzten Verkehrsmittel) der Fahrgäste an.
                     **Vorauswahl der Umfrage (Wege):** Wählen Sie ein vordefiniertes Szenario aus, um die Standardwerte für die Verteilung automatisch auszufüllen. Diese Werte sind anpassbar.""")
         # Dropdown-Menü für Umfrage_wege
         umfrage_wege_options = {
@@ -1604,8 +1604,8 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
             st.warning("Die Summe der Modal-Split-Anteile liegt unter 100%.")
 
         # Außerhalb des Expanders
-        st.write("**Berechnung der Personenkilometer der alternativen Verkehrsmittel**")
-        st.info("**Hinweis:** Um die Anzahl der Personenkilometer der alternativen Verkehrsmittel zu berechnen, werden die mit dem Ridepooling beförderten Fahrgäste mit den entsprechenden Verkehrsmittelverteilung-Anteilen (Umfrage, Wege) multipliziert.")
+        st.write("**Berechnung der Personenkilometer der Verkehrsmittelverteilung (der alternativ genutzten Verkehrsmittel)**")
+        st.info("**Hinweis:** Um die Anzahl der Personenkilometer der Verkehrsmittelverteilung zu berechnen, werden die mit dem Ridepooling beförderten Fahrgäste mit den entsprechenden Verkehrsmittelverteilung-Anteilen (Umfrage, Wege) multipliziert.")
 
         #Speichern der globalen Variablen
         st.session_state['entries_umfrage_wege'] = entries_umfrage_wege
@@ -1691,7 +1691,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
             distance_umfrage_wege = st.number_input(f"Wegeentfernung {mode} [km]:", min_value=0.0, value=float(default_distances_umfrage_wege.get(mode, 0)), format='%f')
             st.session_state[f'entfernung_{key}'] = distance_umfrage_wege
 
-        st.write("**Berechnung der Personenkilometer der alternativen Verkehrsmittel**")
+        st.write("**Berechnung der Personenkilometer der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel)**")
         st.info("**Hinweis:** Die Personenkilometer der alternativ genutzten Verkehrsmittel werden basierend auf den Annahmen zur Wegeentfernung und der Verkehrsmittelverteilung der Fahrgäste berechnet.")
 
         # Berechnung und Speicherung der Personenkilometer für jedes Verkehrsmittel
@@ -1716,7 +1716,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
                     for mode in transport_modes_umfrage_wege if mode != "Verkehrsinduktion"), 0)
         col1, col2 = st.columns([3, 1])
         with col1:
-                    st.write("**Gesamte Personenkilometer für alternative Verkehrsmittel:**")
+                    st.write("**Gesamte Personenkilometer der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel):**")
         with col2:
                     st.write(f"**{personenkilometer_gesamt_av_umfrage_wege} Pkm**")
 
@@ -1726,7 +1726,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
         st.session_state['personenkilometer_gesamt_av'] = personenkilometer_gesamt_av_umfrage_wege
 
         ##### 7. Emissionsdaten alternativer Verkehrsmittel (Nutzung [TTW] und Energie [WTT])
-    with st.expander("**8. Emissionsdaten alternativer Verkehrsmittel (Nutzung [TTW] und Energie [WTT])**"):
+    with st.expander("**8. Emissionsdaten der Referenzmobilität im Bediengebiet (Nutzung [TTW] und Energie [WTT])**"):
         st.info("**Hinweis:** Bitte geben Sie die CO2-Emissionsdaten für die alternativ genutzten Verkehrsmittel an. Sie können vorausgewählte Optionen wählen oder eigene Angaben tätigen. **Vorauswahl der Emissionsdaten:** Wählen Sie ein vordefiniertes Szenario aus, um die Standardwerte für die Emissionsdaten automatisch auszufüllen. Diese Werte sind anpassbar.")
         # Vorauswahl der Emissionsdaten
         vorauswahl_emissionsdaten_optionen_umfrage_wege = ["Eigene Angaben", "Umweltbundesamt, Umweltfreundlich mobil! (2022)"]
@@ -1756,7 +1756,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
                 emission_umfrage_wege = st.number_input(f"Annahmen Emissionsdaten {mode} [gCO2eq/pkm]:", min_value=0.0, value=float(emissionsdaten_defaults_umfrage_wege.get(key, 0)), format='%f')
                 st.session_state[f'emission_{key}'] = emission_umfrage_wege
 
-        st.write("**Berechnung der Personenkilometer für alternative Verkehrsmittel**")
+        st.write("**Berechnung der Personenkilometer für die Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel)**")
         st.info("**Hinweis:** Die Personenkilometer der alternativ genutzten Verkehrsmittel werden basierend auf den Annahmen zur Wegeentfernung und den Emissionsdaten berechnet.")
         st.write("Die Emissionsdaten für die alternativ genutzten Verkehrsmittel betragen:")
 
@@ -1783,7 +1783,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
 
         col1, col2 = st.columns([3, 1])
         with col1:
-                st.write("**Gesamtemissionen für alternative Verkehrsmittel:**")
+                st.write("**Gesamtemissionen der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel):**")
         with col2:
                 st.write(f"**{gesamtemissionen_av_umfrage_wege} kg CO2eq**")
 
@@ -1801,8 +1801,8 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
         st.session_state['gesamtemissionen_av_umfrage_wege'] = gesamtemissionen_av_umfrage_wege
 
     ######## 9. Berechnung der Umweltwirkung alternativer Verkehrsmittel
-    with st.expander("**9. Berechnung der Umweltwirkung alternativer Verkehrsmittel**"):
-        st.info("""**Hinweis:** Im Folgenden wird die Umweltwirkung der alternativ genutzten Verkehrsmittel anhand von Umfragedaten im Raum (Umfragedaten, Wege) dargestellt. In der Abbildung wird der spezifische CO2-Ausstoß pro alternativen Verkehrsmittel denen anderer Verkehrsmittel gegenübergestellt.""")
+    with st.expander("**9. Berechnung der Umweltwirkung der Referenzmobilität im Bediengebiet**"):
+        st.info("""**Hinweis:** Im Folgenden wird die Umweltwirkung der Referenzmobilität im Bediengebiet (alternativ genutzter Verkehrsmittel) anhand von Umfragedaten im Raum (Umfragedaten, Wege) dargestellt. In der Abbildung wird der spezifische CO2-Ausstoß pro Pkm der Referenzmobilität im Betriebsgebiet denen anderer Verkehrsmittel gegenübergestellt.""")
         # Überprüfen, ob alle erforderlichen Werte vorhanden sind, bevor Sie fortfahren
         required_keys = ['gesamtemissionen_av_umfrage_wege', 'personenkilometer_gesamt_av_umfrage_wege']
         if all(key in st.session_state for key in required_keys):
@@ -1816,7 +1816,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
             st.session_state['emissionen_pro_personenkilometer_av_umfrage_wege'] = emissionen_pro_personenkilometer_av_umfrage_wege
 
             emissionen_data = {
-                'Alternative Verkehrsmittel': emissionen_pro_personenkilometer_av_umfrage_wege * 1000,
+                'Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel)': emissionen_pro_personenkilometer_av_umfrage_wege * 1000,
                 'Pkw - MIV (Fahrer) & MIV (Mitfahrer)': 152.86,
                 '(Nahlinien-)Bus': 80.54,
                 'Straßen-/Stadt-/U-Bahn': 59.30,
@@ -1850,14 +1850,14 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
 
             col1, col2 = st.columns([3, 1])
             with col1:
-                st.write("**Gesamte CO2-Emissionen der alternativen Verkehrsmittel:**")
+                st.write("**Gesamte CO2-Emissionen der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel):**")
             with col2:
                 st.write(f"**{gesamtemissionen_av_umfrage_wege} kg CO2**")
             st.session_state['gesamtemissionen_av_umfrage_wege'] = gesamtemissionen_av_umfrage_wege
 
             col1, col2 = st.columns([3, 1])
             with col1:
-                st.write("**CO2-Emissionen der alternativen Verkehrsmittel pro Personenkilometer:**")
+                st.write("**CO2-Emissionen der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel) pro Personenkilometer:**")
             with col2:
                 st.write(f"**{emissionen_pro_personenkilometer_av_umfrage_wege:.3f} g CO2/pkm**")
 
@@ -1865,9 +1865,9 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
             st.session_state['emissionen_pro_personenkilometer_av_umfrage_wege'] = emissionen_pro_personenkilometer_av_umfrage_wege
 
         else:
-            st.error("Bitte stellen Sie sicher, dass alle erforderlichen Daten vorhanden sind, um die Umweltwirkung der alternativen Verkehrsmittel zu berechnen.")
+            st.error("Bitte stellen Sie sicher, dass alle erforderlichen Daten vorhanden sind, um die Umweltwirkung der Referenzmobilität im Bediengebiet (alternativ genutzten Verkehrsmittel) zu berechnen.")
     
-    st.subheader("Vergleich der spezifischen CO2-Emissionen pro Personenkilometer für das Ridepooling-System und alternative Verkehrsmittel")
+    st.subheader("Vergleich der spezifischen CO2-Emissionen pro Personenkilometer für das Ridepooling-System und der Referenzmobilität im Bediengebiet")
 
     ######## 10. Vergleich
     with st.expander("**10. Vergleich**"):
@@ -1942,13 +1942,13 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
             
             col1, col2 = st.columns([3, 1])
             with col1:
-                st.write("**Gesamte CO2-Emissionen der alternativen Verkehrsmittel:**")
+                st.write("**Gesamte CO2-Emissionen der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel):**")
             with col2:
                 st.write(f"**{gesamtemissionen_av_umfrage_wege} kg CO2**")
 
             col1, col2 = st.columns([3, 1])
             with col1:
-                st.write("**CO2-Emissionen der alternativen Verkehrsmittel pro Personenkilometer:**")
+                st.write("**CO2-Emissionen der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel) pro Personenkilometer:**")
             with col2:
                 st.write(f"**{emissionen_pro_personenkilometer_av_umfrage_wege:.3f} kg CO2/pkm**")
                          
@@ -1963,7 +1963,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
                     total_difference = round((co2_emissionen_gesamt_rps - gesamtemissionen_av_umfrage_wege), 2)
                     st.error(f"Das Ridepooling-System weist im Vergleich zu den den alternativ genutzten Verkehrsmitteln eine höhere spezifische CO2-Emission pro Personenkilometer auf. Die spezifische CO2-Emission pro Personenkilometer des Ridepooling-Systems ist um {percentage_difference} % höher als bei alternativ genutzten Verkehrsmitteln. Die Gesamtemissionen des Ridepoolings betragen {co2_emissionen_gesamt_rps} kg CO2, was im Betrachtungszeitraum ({start_date} bis {end_date}) zu einer Erhöhung von {total_difference} kg CO2 im Vergleich den alternativ genutzten Verkehrsmitteln entspricht.")
                 else:
-                    st.warning("Das Ridepooling-System und die alternativen Verkehrsmittel weisen die gleiche spezifische CO2-Emission pro Personenkilometer auf.")
+                    st.warning("Das Ridepooling-System und die Referenzmobilität im Bediengebiet weisen die gleiche spezifische CO2-Emission pro Personenkilometer auf.")
         else:
             st.error("Bitte stellen Sie sicher, dass alle erforderlichen Daten vorhanden sind, um den Vergleich der spezifischen CO2-Emissionen pro Personenkilometer durchzuführen.")
     
@@ -2055,9 +2055,9 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
 
                 data_av_umfrage_wege = {
                     "Merkmal": ["Wert"],
-                    "Gesamtemissionen alternative Verkehrsmittel (kg CO2eq)": [st.session_state['gesamtemissionen_av_umfrage_wege']],
-                    "Personenkilometer alternative Verkehrsmittel (km)": [st.session_state['personenkilometer_gesamt_av_umfrage_wege']],
-                    "CO2-Emissionen pro Personenkilometer alternative Verkehrsmittel (g CO2eq/pkm)": [st.session_state['emissionen_pro_personenkilometer_av_umfrage_wege']]
+                    "Gesamtemissionen der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel) (kg CO2eq)": [st.session_state['gesamtemissionen_av_umfrage_wege']],
+                    "Personenkilometer Referenzmobilität im Bediengebiet (pkm)": [st.session_state['personenkilometer_gesamt_av_umfrage_wege']],
+                    "CO2-Emissionen pro Personenkilometer der Referenzmobilität im Bediengebiet (g CO2eq/pkm)": [st.session_state['emissionen_pro_personenkilometer_av_umfrage_wege']]
                 }
 
                 # Hinzufügen der Modal Split Daten
@@ -2108,8 +2108,8 @@ mode_to_key_umfrage_pkm = {
 }
 
 if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (Pkm)":
-    with st.expander("**6. Verkehrsmittelverteilung alternativer Verkehrsmittel**"):
-        st.info("""**Hinweis:** Bitte geben Sie die Annahmen für die Verteilung der alternativen Verkehrsmittelverteilung der Fahrgäste an.
+    with st.expander("**6. Verkehrsmittelverteilung der Referenzmobilität im Bediengebiet (alternativ genutzter Verkehrsmittel)**"):
+        st.info("""**Hinweis:** Bitte geben Sie die Annahmen für die Verteilung der alternativ genutzten Verkehrsmittelverteilung der Fahrgäste an.
                     **Vorauswahl der Umfrage (Pkm):** Wählen Sie ein vordefiniertes Szenario aus, um die Standardwerte für die Verteilung automatisch auszufüllen. Diese Werte sind anpassbar.""")
         # Dropdown-Menü für Umfrage_pkm
         umfrage_pkm_options = {
@@ -2142,7 +2142,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
             st.warning("Die Summe der Modal-Split-Anteile liegt unter 100%.")
 
         # Außerhalb des Expanders
-        st.subheader("Berechnung der Personenkilometer der alternativen Verkehrsmittel")
+        st.subheader("Berechnung der Personenkilometer der alternativ genutzten Verkehrsmittel")
 
         st.info("Die folgenden Daten beziehen sich auf die transportierten Fahrgäste des Ridepooling-Systems.")
 
@@ -2151,7 +2151,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
 
         if 'personenkilometer_gefahren' in st.session_state and 'entries_umfrage_pkm' in st.session_state:
             personenkilometer_gefahren = int(st.session_state['personenkilometer_gefahren'])
-            st.write(f"Von den zurückgelegten **{int(st.session_state['personenkilometer_gefahren'])}** Personenkilometern des Ridepooling-Systems würden entsprechend viele auf folgende alternative Verkehrsmittel entfallen:")
+            st.write(f"Von den zurückgelegten **{int(st.session_state['personenkilometer_gefahren'])}** Personenkilometern des Ridepooling-Systems würden entsprechend viele auf folgende alternativ genutzte Verkehrsmittel entfallen:")
             entries_umfrage_pkm = st.session_state['entries_umfrage_pkm']
 
             for verkehrsmittel, anteil_umfrage_pkm in entries_umfrage_pkm.items():
@@ -2188,7 +2188,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
     }
 
 
-    with st.expander("**7. Emissionsdaten alternativer Verkehrsmittel (Nutzung [TTW] und Energie [WTT])**"):
+    with st.expander("**7. Emissionsdaten der Referenzmobilität im Bediengebiet (alternativ genutzter Verkehrsmittel) (Nutzung [TTW] und Energie [WTT])**"):
         st.info("""**Hinweis:** Bitte geben Sie die CO2-Emissionsdaten für die alternativ genutzten Verkehrsmittel an. Sie können vorausgewählte Optionen wählen oder eigene Angaben tätigen.""")
         # Vorauswahl der Emissionsdaten
         vorauswahl_emissionsdaten_optionen_umfrage_pkm = ["Eigene Angaben", "Umweltbundesamt, Umweltfreundlich mobil! (2022)"]
@@ -2243,7 +2243,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
 
         col1, col2 = st.columns([3, 1])
         with col1:
-            st.write("**Gesamtemissionen für alternative Verkehrsmittel:**")
+            st.write("**Gesamtemissionen für Referenzmobilität im Bediengebiet:**")
         with col2:
             st.write(f"**{gesamtemissionen_av_umfrage_pkm} kg CO2eq**")
 
@@ -2261,8 +2261,8 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
 
 
     ######## 8. Berechnung der Umweltwirkung alternativer Verkehrsmittel
-    with st.expander("**8. Berechnung der Umweltwirkung alternativer Verkehrsmittel**"):
-        st.info("""**Hinweis:** Im Folgenden wird die Umweltwirkung der alternativ genutzten Verkehrsmittel anhand von Umfragedaten im Raum (Umfragedaten, Personenkilometer) dargestellt. In der Abbildung wird der spezifische CO2-Ausstoß pro alternativen Verkehrsmittel denen anderer Verkehrsmittel gegenübergestellt. Die Kategoerie 'Sonstiges' wird durch die UBA-Quelle ("umweltfreundlich mobil!", 2022) nicht berücksichtigt.""")
+    with st.expander("**8. Berechnung der Umweltwirkung Referenzmobilität im Bediengebiet (alternativ genutzter Verkehrsmittel)**"):
+        st.info("""**Hinweis:** Im Folgenden wird die Umweltwirkung der Referenzmobilität im Bediengebiet (alternativ genutzter Verkehrsmittel( anhand von Umfragedaten (Umfragedaten, Personenkilometer) dargestellt. In der Abbildung wird der spezifische CO2-Ausstoß der Referenzmobilität im Bediengebiet denen anderer Verkehrsmittel gegenübergestellt. Die Kategoerie 'Sonstiges' wird durch die UBA-Quelle ("umweltfreundlich mobil!", 2022) nicht berücksichtigt.""")
         # Überprüfen, ob alle erforderlichen Werte vorhanden sind, bevor Sie fortfahren
         required_keys = ['gesamtemissionen_av_umfrage_pkm', 'personenkilometer_gefahren_umfrage_pkm']
         if all(key in st.session_state for key in required_keys):
@@ -2276,7 +2276,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
             st.session_state['emissionen_pro_personenkilometer_av_umfrage_pkm'] = emissionen_pro_personenkilometer_av_umfrage_pkm
 
             emissionen_data = {
-                'Alternative Verkehrsmittel': emissionen_pro_personenkilometer_av_umfrage_pkm * 1000,
+                'Referenzmobilität im Bediengebiet (alternative Verkehrsmittel)': emissionen_pro_personenkilometer_av_umfrage_pkm * 1000,
                 'Pkw - MIV (Fahrer) & MIV (Mitfahrer)': 152.86,
                 '(Nahlinien-)Bus': 80.54,
                 'Straßen-/Stadt-/U-Bahn': 59.30,
@@ -2310,14 +2310,14 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
 
             col1, col2 = st.columns([3, 1])
             with col1:
-                st.write("**Gesamte CO2-Emissionen der alternativen Verkehrsmittel:**")
+                st.write("**Gesamte CO2-Emissionen der Referenzmobilität im Bediengebiet (alternativ genutzter Verkehrsmittel):**")
             with col2:
                 st.write(f"**{gesamtemissionen_av_umfrage_pkm} kg CO2**")
             st.session_state['gesamtemissionen_av_umfrage_pkm'] = gesamtemissionen_av_umfrage_pkm
 
             col1, col2 = st.columns([3, 1])
             with col1:
-                st.write("**CO2-Emissionen der alternativen Verkehrsmittel pro Personenkilometer:**")
+                st.write("**CO2-Emissionen der Referenzmobilität im Bediengebiet (alternativ genutzter Verkehrsmittel) pro Personenkilometer:**")
             with col2:
                 st.write(f"**{emissionen_pro_personenkilometer_av_umfrage_pkm:.3f} g CO2/pkm**")
 
@@ -2325,14 +2325,14 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
             st.session_state['emissionen_pro_personenkilometer_av_umfrage_pkm'] = emissionen_pro_personenkilometer_av_umfrage_pkm
 
         else:
-            st.error("Bitte stellen Sie sicher, dass alle erforderlichen Daten vorhanden sind, um die Umweltwirkung der alternativen Verkehrsmittel zu berechnen.")
+            st.error("Bitte stellen Sie sicher, dass alle erforderlichen Daten vorhanden sind, um die Umweltwirkung der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel) zu berechnen.")
 
-    st.subheader("Vergleich der spezifischen CO2-Emissionen pro Personenkilometer für das Ridepooling-System und alternative Verkehrsmittel")
+    st.subheader("Vergleich der spezifischen CO2-Emissionen pro Personenkilometer für das Ridepooling-System und Referenzmobilität im Bediengebiet")
 
 
 ######## 9. Vergleich
     with st.expander("**9. Vergleich**"):
-        st.info("""**Hinweis:** Im Folgenden wird der spezifische CO2-Ausstoß pro Personenkilometer des Ridepooling-Systems mit denen der alternativ genutzten Verkehrsmittel verglichen.""")
+        st.info("""**Hinweis:** Im Folgenden wird der spezifische CO2-Ausstoß pro Personenkilometer des Ridepooling-Systems mit denen der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel) verglichen.""")
 
         'initialisierung der benötigten Variablen, falls nicht vorhanden'
         if 'co2_emissionen_pro_personenkilometer_rps_umfrage_pkm' not in st.session_state:
@@ -2359,7 +2359,7 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
             # Erstellung des Diagramms
             emissionen_data = {
                 st.session_state['name_ridepooling_system']: co2_emissionen_pro_personenkilometer_rps * 1000,
-                'Alternative Verkehrsmittel': emissionen_pro_personenkilometer_av_umfrage_pkm * 1000
+                'Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel)': emissionen_pro_personenkilometer_av_umfrage_pkm * 1000
             }
 
             fig5 = go.Figure()
@@ -2403,13 +2403,13 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
             
             col1, col2 = st.columns([3, 1])
             with col1:
-                st.write("**Gesamte CO2-Emissionen der alternativen Verkehrsmittel:**")
+                st.write("**Gesamte CO2-Emissionen der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel):**")
             with col2:
                 st.write(f"**{gesamtemissionen_av_umfrage_pkm} kg CO2**")
 
             col1, col2 = st.columns([3, 1])
             with col1:
-                st.write("**CO2-Emissionen der alternativen Verkehrsmittel pro Personenkilometer:**")
+                st.write("**CO2-Emissionen der Referenzmobilität im Bediengebiet (alternativ genutzte Verkehrsmittel) pro Personenkilometer:**")
             with col2:
                 st.write(f"**{emissionen_pro_personenkilometer_av_umfrage_pkm:.3f} kg CO2/pkm**")
                          
@@ -2418,13 +2418,13 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
                 if co2_emissionen_pro_personenkilometer_rps < emissionen_pro_personenkilometer_av_umfrage_pkm:
                     percentage_difference = round((emissionen_pro_personenkilometer_av_umfrage_pkm - co2_emissionen_pro_personenkilometer_rps) / emissionen_pro_personenkilometer_av_umfrage_pkm * 100, 2)
                     total_difference = round((gesamtemissionen_av_umfrage_pkm - co2_emissionen_gesamt_rps), 2)
-                    st.success(f"Das Ridepooling-System weist im Vergleich zu den alternativ genutzten Verkehrsmitteln eine geringere spezifische CO2-Emission pro Personenkilometer auf. Die spezifische CO2-Emission pro Personenkilometer des Ridepooling-Systems ist um {percentage_difference} % niedriger als bei alternativ genutzten Verkehrsmitteln. Die Gesamtemissionen des Ridepoolings betragen {co2_emissionen_gesamt_rps} kg CO2, was im Betrachtungszeitraum ({start_date} bis {end_date}) zu einer Einsparung von {total_difference} kg CO2 im Vergleich den alternativ genutzten Verkehrsmitteln entspricht.")
+                    st.success(f"Das Ridepooling-System weist im Vergleich zu der Referenzmobilität im Bediengebiet (den alternativ genutzten Verkehrsmitteln) eine geringere spezifische CO2-Emission pro Personenkilometer auf. Die spezifische CO2-Emission pro Personenkilometer des Ridepooling-Systems ist um {percentage_difference} % niedriger als die der Referenzmobilität im Bediengebiet (alternativ genutzten Verkehrsmittel). Die Gesamtemissionen des Ridepoolings betragen {co2_emissionen_gesamt_rps} kg CO2, was im Betrachtungszeitraum ({start_date} bis {end_date}) zu einer Einsparung von {total_difference} kg CO2 im Vergleich zu der Referenzmobilität im Bediengebiet entspricht.")
                 elif co2_emissionen_pro_personenkilometer_rps > emissionen_pro_personenkilometer_av_umfrage_pkm:
                     percentage_difference = round((co2_emissionen_pro_personenkilometer_rps - emissionen_pro_personenkilometer_av_umfrage_pkm) / emissionen_pro_personenkilometer_av_umfrage_pkm * 100, 2)
                     total_difference = round((co2_emissionen_gesamt_rps - gesamtemissionen_av_umfrage_pkm), 2)
-                    st.error(f"Das Ridepooling-System weist im Vergleich zu den den alternativ genutzten Verkehrsmitteln eine höhere spezifische CO2-Emission pro Personenkilometer auf. Die spezifische CO2-Emission pro Personenkilometer des Ridepooling-Systems ist um {percentage_difference} % höher als bei alternativ genutzten Verkehrsmitteln. Die Gesamtemissionen des Ridepoolings betragen {co2_emissionen_gesamt_rps} kg CO2, was im Betrachtungszeitraum ({start_date} bis {end_date}) zu einer Erhöhung von {total_difference} kg CO2 im Vergleich den alternativ genutzten Verkehrsmitteln entspricht.")
+                    st.error(f"Das Ridepooling-System weist im Vergleich zu der Referenzmobilität im Bediengebiet (den alternativ genutzten Verkehrsmitteln) eine höhere spezifische CO2-Emission pro Personenkilometer auf. Die spezifische CO2-Emission pro Personenkilometer des Ridepooling-Systems ist um {percentage_difference} % höher als die der Referenzmobilität im Bediengebiet (alternativ genutzten Verkehrsmitteln). Die Gesamtemissionen des Ridepoolings betragen {co2_emissionen_gesamt_rps} kg CO2, was im Betrachtungszeitraum ({start_date} bis {end_date}) zu einer Erhöhung von {total_difference} kg CO2 im Vergleich der Referenzmobilität im Bediengebiet entspricht.")
                 else:
-                    st.warning("Das Ridepooling-System und die alternativen Verkehrsmittel weisen die gleiche spezifische CO2-Emission pro Personenkilometer auf.")
+                    st.warning("Das Ridepooling-System und die Referenzmobilität im Bediengebiet (alternativ genutzten Verkehrsmittel) weisen die gleiche spezifische CO2-Emission pro Personenkilometer auf.")
         else:
             st.error("Bitte stellen Sie sicher, dass alle erforderlichen Daten vorhanden sind, um den Vergleich der spezifischen CO2-Emissionen pro Personenkilometer durchzuführen.")
 
@@ -2514,9 +2514,9 @@ if 'methodik' in st.session_state and st.session_state['methodik'] == "Umfrage (
 
                 data_av_umfrage_pkm = {
                     "Merkmal": ["Wert"],
-                    "Gesamtemissionen alternative Verkehrsmittel (kg CO2eq)": [st.session_state['gesamtemissionen_av_umfrage_pkm']],
-                    "Personenkilometer alternative Verkehrsmittel (km)": [st.session_state['personenkilometer_gefahren_umfrage_pkm']],
-                    "CO2-Emissionen pro Personenkilometer alternative Verkehrsmittel (g CO2eq/pkm)": [st.session_state['emissionen_pro_personenkilometer_av_umfrage_pkm']]
+                    "Gesamtemissionen Referenzmobilität im Bediengebiet (alternativ genutzter Verkehrsmittel) (kg CO2eq)": [st.session_state['gesamtemissionen_av_umfrage_pkm']],
+                    "Personenkilometer Referenzmobilität im Bediengebiet (alternativ genutzter Verkehrsmittel) (pkm)": [st.session_state['personenkilometer_gefahren_umfrage_pkm']],
+                    "CO2-Emissionen pro Personenkilometer der Referenzmobilität im Bediengebiet (alternativ genutzter Verkehrsmittel) (g CO2eq/pkm)": [st.session_state['emissionen_pro_personenkilometer_av_umfrage_pkm']]
                 }
 
                 # Hinzufügen der Modal Split Daten

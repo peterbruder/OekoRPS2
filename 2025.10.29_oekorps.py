@@ -87,7 +87,7 @@ def show_methodik_section():
         st.info("""
         **Hinweis:** Bitte gehen Sie bei der Bearbeitung sukzessiv vor. 
         Die Reihenfolge der Schritte ist vorgegeben und kann nicht verändert werden. 
-        Nähere Informationen zur Bearbeitung können Sie folgendem Dokument entnehmen: [FH Münster](https://www.fh-muenster.de/)
+        Nähere Informationen zur Bearbeitung können Sie folgendem Dokument entnehmen: [Dissertation Bruder (Veröffentlichung vermutlich Q1 2026)](https://www.fh-muenster.de/)
         """)
 
 # Funktion zur Darstellung der Allgemeinen Informationen

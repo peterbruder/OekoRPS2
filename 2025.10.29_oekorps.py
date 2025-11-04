@@ -42,9 +42,6 @@ def show_sidebar():
         </style>
     """, unsafe_allow_html=True)
 
-def format_text(text: str) -> str:
-    return text.replace("CO2", "CO₂")
-
 # Funktion zur Validierung der Eingaben
 def validate_input(text):
     return text.isdigit()
@@ -93,7 +90,11 @@ def show_methodik_section():
         Nähere Informationen zur Bearbeitung können Sie folgendem Dokument entnehmen: [Dissertation Bruder (Veröffentlichung vermutlich Q1 2026)](https://www.fh-muenster.de/)
         """)
 
-# Funktion zur Darstellung der Allgemeinen Informationen
+def format_text(text: str) -> str:
+    return text.replace("CO2", "CO₂")
+
+
+
 # Funktion zur Darstellung der Allgemeinen Informationen
 def show_general_info():
     with st.expander("**1. Allgemeine Informationen**"):

@@ -57,9 +57,38 @@ def validate_input_int(text):
 def show_methodik_section():
     st.subheader("Methodik der Ökobilanzierung")
     with st.expander("**Methodik**"):
-        st.write("Die methodische Vorgehensweise dieser Studie besteht darin, zunächst zu ermitteln, wie viele Fahrgäste das Ridepooling-System transportiert und wie viel Energie dabei verbraucht wird. Dieser Energieverbrauch wird auf eine vergleichbare Einheit umgerechnet, den Energieverbrauch pro Personenkilometer. Anschließend wird die Transportleistung des Ridepooling-Systems mit dem Mobilitätsverhalten verglichen, welches ohne ein Ridepooling-System auftreten würde, also mit den alternativ genutzten Verkehrsmitteln. Diese Vorgehensweise ermöglicht es, die ökologische Effizienz des Ridepooling-Systems objektiv bewerten zu können. Der Prozess wird in der untenstehenden Abbildung veranschaulicht.")
-        st.image('Abbildung_Methodik.png', use_container_width=True)
-        st.info("**Hinweis:** Bitte gehen Sie bei der Bearbeitung sukzessiv vor. Die Reihenfolge der Schritte ist vorgegeben und kann nicht verändert werden. Nähere Informationen zur Bearbeitung können Sie folgendem Dokument entnehmen: [FH Münster](https://www.fh-muenster.de/)")
+        st.write("""
+        Die methodische Vorgehensweise dieser Studie orientiert sich an der Norm DIN EN 16258 zur Berechnung von Energieverbrauch und Treibhausgasemissionen im Transportwesen. 
+        Es wird ein Well-to-Wheel-Ansatz (WtW) verfolgt, der den Energieverbrauch entlang der gesamten Bereitstellungskette bis zur Nutzung im Fahrzeug berücksichtigt.
+    
+        Im Fokus steht dabei nicht nur die isolierte Betrachtung der durch das Ridepooling-System verursachten Emissionen, sondern insbesondere die Veränderungen im Mobilitätsverhalten im Bediengebiet. 
+        Die Netto-Klimawirkung ergibt sich wesentlich daraus, welche Verkehrsmittel durch das Angebot ersetzt oder verdrängt werden. 
+        Eine Substitution des motorisierten Individualverkehrs (MIV) kann zur Emissionsreduktion führen, während die Verlagerung vom Umweltverbund (Fußverkehr, Radverkehr oder ÖPNV) gegenteilige Effekte hervorrufen kann.
+    
+        Zur methodischen Berücksichtigung dieser Wechselwirkungen wird ein kontrafaktisches Substitutionsszenario angewendet. 
+        Dabei wird angenommen, wie sich das Mobilitätsverhalten im Untersuchungsraum ohne das Ridepooling-Angebot darstellen würde (Referenzmobilität). 
+        Die durch das Ridepooling-System erbrachte Verkehrsleistung wird hypothetisch auf alternativ genutzte Verkehrsmittel verteilt, um die potenziell vermiedenen bzw. zusätzlich verursachten Emissionen zu bestimmen.
+    
+        Die THG-Bilanzierung erfolgt in zwei Schritten:
+        Zunächst werden die Emissionen des realen Ridepooling-Systems auf Basis der gefahrenen Verkehrsleistung in Personenkilometern (Pkmgefahren) berechnet. 
+        Dies umfasst die getrennte Ermittlung des Energieverbrauchs nach Energieträgern und Fahrzeugtypen sowie die Umrechnung in CO₂-Äquivalente mittels standardisierter Emissionsfaktoren. 
+        Anschließend erfolgt die Allokation auf die Bezugsgröße Pkmgefahren.
+    
+        Im zweiten Schritt wird die THG-Bilanz der kontrafaktischen Referenzmobilität erstellt. 
+        Grundlage hierfür sind Modal-Split-Daten, ergänzende Nutzerbefragungen sowie methodisch definierte Ansätze zur Substitution (V1–V5), bei denen wahlweise Pkm, Fahrgastzahlen oder Wegstrecken als Bezugsgröße herangezogen werden.
+    
+        Diese Vorgehensweise erlaubt eine differenzierte, systemisch fundierte Bewertung der ökologischen Effizienz von Ridepooling-Angeboten im Kontext bestehender Verkehrssysteme.
+    
+        Der Gesamtprozess wird in der nachfolgenden Abbildung schematisch dargestellt.
+        """)
+    
+        st.image("Abbildung_Methodik.png", use_container_width=True)
+    
+        st.info("""
+        **Hinweis:** Bitte gehen Sie bei der Bearbeitung sukzessiv vor. 
+        Die Reihenfolge der Schritte ist vorgegeben und kann nicht verändert werden. 
+        Nähere Informationen zur Bearbeitung können Sie folgendem Dokument entnehmen: [FH Münster](https://www.fh-muenster.de/)
+        """)
 
 # Funktion zur Darstellung der Allgemeinen Informationen
 # Funktion zur Darstellung der Allgemeinen Informationen
